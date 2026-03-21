@@ -1,0 +1,31 @@
+{
+  "name": "qnp-crm",
+  "version": "0.2.0",
+  "type": "module",
+  "bin": {
+    "qnp-crm": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "node --env-file=.env node_modules/.bin/tsx watch src/cli.ts",
+    "test": "vitest run",
+    "test:integration": "QNP_DATABASE_URL=postgres://nanoclaw_test:nanoclaw_test@localhost:5432/nanoclaw_test QNP_DATA_DIR=/tmp/nanoclaw-test-receipts QNP_PERFORMER=cli:test vitest run --config vitest.integration.config.ts",
+    "db:generate": "node --env-file=.env node_modules/.bin/drizzle-kit generate",
+    "db:migrate": "node --env-file=.env node_modules/.bin/drizzle-kit migrate",
+    "db:push": "node --env-file=.env node_modules/.bin/drizzle-kit push"
+  },
+  "dependencies": {
+    "commander": "^13.1.0",
+    "csv-parse": "^6.1.0",
+    "drizzle-orm": "^0.38.0",
+    "postgres": "^3.4.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "drizzle-kit": "^0.30.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}

@@ -1,0 +1,16 @@
+services:
+  postgres-test:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: nanoclaw_test
+      POSTGRES_PASSWORD: nanoclaw_test
+      POSTGRES_DB: nanoclaw_test
+    ports:
+      - "5433:5432"
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nanoclaw_test"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
