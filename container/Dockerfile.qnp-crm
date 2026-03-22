@@ -1,0 +1,23 @@
+# ---------------------------------------------------------------------------
+# qnp-crm — append to NanoClaw's container/Dockerfile
+# ---------------------------------------------------------------------------
+
+# Switch to root for package installation
+USER root
+
+# Install qnp-crm CLI from npm
+RUN npm install -g qnp-crm
+
+# PostgreSQL client (for sequence operations and direct queries if needed)
+RUN apt-get update && apt-get install -y --no-install-recommends postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
+
+# Data directory for receipts
+RUN mkdir -p /var/lib/nanoclaw/receipts
+
+# Environment
+ENV QNP_DATABASE_URL=postgres://nanoclaw:nanoclaw@host.docker.internal:5432/nanoclaw
+ENV QNP_DATA_DIR=/var/lib/nanoclaw
+
+# Switch back to non-root
+USER node
