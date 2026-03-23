@@ -1,7 +1,16 @@
 {
   "name": "qnp-crm",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/**/*.map",
+    "!dist/__integration__",
+    "!dist/test-helpers.*",
+    "!dist/eval",
+    "nanoclaw-skill"
+  ],
   "bin": {
     "qnp-crm": "dist/cli.js"
   },
