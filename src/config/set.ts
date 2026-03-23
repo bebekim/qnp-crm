@@ -71,9 +71,12 @@ export async function configSet(
     await db.insert(schema.receiptConfig).values({ id: 1, [colName]: value });
   }
 
+  // receipt_config uses integer PK, but audit_log.record_id is uuid.
+  // Use a deterministic UUID-like value for the singleton config row.
+  const configRecordId = "00000000-0000-0000-0000-000000000001";
   await audit(db, {
     table: "receipt_config",
-    recordId: "1",
+    recordId: configRecordId,
     action: existing ? "UPDATE" : "INSERT",
     changes: { [colName]: { old: oldValue, new: value } },
     by: performer(),
